@@ -1,4 +1,4 @@
-
+//I would commit suicide rn... But i need to know how to commit first
 public abstract class NoeudAbstrait {
 	protected NoeudAbstrait frere;
 
