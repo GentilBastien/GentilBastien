@@ -15,15 +15,15 @@ public abstract class NoeudAbstrait {
 
 
 	public static void main(String[] args) throws ModificationImpossibleException {
-		NoeudAbstrait entree = new Marque(null);
-		System.out.println(">>>" + entree.toString("") + "<<<<<<");
-		entree = entree.ajout("basti");
-		entree = entree.ajout("jul");
-		entree = entree.ajout("dimit");
-		System.out.println("ajout de bast");
-		entree.ajout("bast");
-		entree.ajout("bastien");
-		System.out.println(">>>" + entree.toString("") + "<<<<<<");
+//		NoeudAbstrait entree = new Marque(null);
+//		System.out.println(">>>" + entree.toString("") + "<<<<<<");
+//		entree = entree.ajout("basti");
+//		entree = entree.ajout("jul");
+//		entree = entree.ajout("dimit");
+//		System.out.println("ajout de bast");
+//		entree.ajout("bast");
+//		entree.ajout("bastien");
+//		System.out.println(">>>" + entree.toString("") + "<<<<<<");
 
 	}
 
