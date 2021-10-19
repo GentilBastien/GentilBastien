@@ -60,7 +60,7 @@ public class Grille {
 	 * @param value La valeur de la case à déplacer.
 	 */
 	public void deplacerCase(int value) {
-
+//je c pa
 	}
 
 	/**
