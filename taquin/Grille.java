@@ -60,7 +60,38 @@ public class Grille {
 	 * @param value La valeur de la case à déplacer.
 	 */
 	public void deplacerCase(int value) {
+		/**
+		 * check si la case en param est valide.
+		 */
+		if (value < 0 || value > size)
+			throw new IllegalArgumentException("Value out of bounds.");
+		/**
+		 * check si la case en param est déplaçable (si case blanche est adjacente),
+		 * sinon return (ne fait rien).
+		 */
+		if ((row(value) == row(size - 1) && Math.abs(get(value) - get(size - 1)) == 1)
+				|| (col(value) == col(size - 1) && Math.abs(get(value) - get(size - 1)) == dim))
+			Collections.swap(ordre, get(value), get(size - 1));
+	}
 
+	/**
+	 * Retourne la ligne de la case en paramètre.
+	 * 
+	 * @param value La valeur de la case à tester.
+	 * @return La ligne de la case <code>value</code>.
+	 */
+	private int row(int value) {
+		return get(value) / dim;
+	}
+
+	/**
+	 * Retourne la colonne de la case en paramètre.
+	 * 
+	 * @param value La valeur de la case à tester.
+	 * @return La colonne de la case <code>value</code>.
+	 */
+	private int col(int value) {
+		return get(value) % dim;
 	}
 
 	/**

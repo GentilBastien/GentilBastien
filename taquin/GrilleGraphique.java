@@ -2,6 +2,8 @@ package taquin;
 
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -73,12 +75,23 @@ public class GrilleGraphique extends Grille {
 
 		for (int i = 0; i < size; i++) {
 			cases[i] = new Case(i, imgs[i]);
+			cases[i].addActionListener(moveCase);
 		}
 
 		updateGrille();
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 	}
+
+	private final ActionListener moveCase = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Case c = (Case) e.getSource();
+			deplacerCase(c.getValue());
+			updateGrille();
+		}
+	};
 
 	/**
 	 * Découpe l'image totale originale en fonction de la dimension et stocke chaque
@@ -92,7 +105,7 @@ public class GrilleGraphique extends Grille {
 		if (img.getIconWidth() != img.getIconHeight())
 			throw new IllegalArgumentException("L'image n'est pas carrée.");
 
-		int preferredSize = 600, l = preferredSize / dim;
+		int preferredSize = img.getIconWidth(), l = preferredSize / dim;
 
 		BufferedImage buff = new BufferedImage(preferredSize, preferredSize, BufferedImage.TYPE_INT_RGB);
 		Graphics g = buff.createGraphics();
