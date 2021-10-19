@@ -1,12 +1,13 @@
 package taquin;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.collections.impl.list.Interval;
 
 /**
+ * Décrit une grille de Taquin. Une grille de Taquin doit être carrée.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
@@ -14,36 +15,61 @@ import org.eclipse.collections.impl.list.Interval;
  *
  */
 public class Grille {
-	
+	/**
+	 * La taille totale de cases dans le jeu.
+	 */
 	protected final int size;
-	protected Integer[] ordre;
-	
+	/**
+	 * La dimension de la grille.
+	 */
+	protected final int dim;
+	/**
+	 * Une liste d'entiers qui correspond à l'ordre actuel des cases dans la grille.
+	 */
+	protected List<Integer> ordre;
+
+	/**
+	 * Construit une <code>Grille</code>.
+	 * 
+	 * @param size La taille totale de la grille.
+	 */
 	public Grille(int size) {
 		if (size < 0)
 			throw new IllegalArgumentException("Taille négative.");
 		this.size = size;
-		ordre = new Integer[size];
-		
+		dim = (int) Math.sqrt(size);
 		constructRandomGrid();
 	}
-	
+
+	/**
+	 * Initialise la liste d'entier qui correspond à l'ordre actuel des cases dans
+	 * la grille. L'ordre initial est aléatoire. À noter que la case blanche se
+	 * situe toujours en dernière position au début du jeu.
+	 */
 	private void constructRandomGrid() {
-		ordre = Interval.toArray(0, size - 1);
-		
-		List<Integer> list = Arrays.asList(ordre);
-		Collections.shuffle(list);
-		Collections.swap(list, list.indexOf(size - 1), size - 1);
-		
-		ordre = list.toArray(ordre);
+		ordre = new ArrayList<>(Interval.zeroTo(size - 1));
+		Collections.shuffle(ordre);
+		Collections.swap(ordre, get(size - 1), size - 1);
 	}
 
+	/**
+	 * Permute de place la case en paramètre et la case blanche. La méthode retourne
+	 * directement si cette case n'est pas déplaçable. Pour être déplaçable, une
+	 * case doit être adjacente à la case blanche.
+	 * 
+	 * @param value La valeur de la case à déplacer.
+	 */
 	public void deplacerCase(int value) {
-		//check si la case en param est non null
-		
-		//check si la case en param appartient à notre tableau de Case
-		
-		//check si la case en param est déplaçable (si case blanche est adjacente), sinon return (ne fait rien)
-		
-		//permute la position avec la case blanche
+
+	}
+
+	/**
+	 * Retourne l'index de la case de <code>value</code> dans la grille.
+	 * 
+	 * @param value La valeur de la case à tester.
+	 * @return L'index de la case <code>value</code>.
+	 */
+	protected int get(int value) {
+		return ordre.indexOf(value);
 	}
 }

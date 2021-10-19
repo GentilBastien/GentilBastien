@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Cool taquin
+ * Classe qui décrit l'interface d'une grille de Taquin.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
@@ -19,21 +19,46 @@ import javax.swing.JPanel;
 public class GrilleGraphique extends Grille {
 
 	public static void main(String[] args) {
-		new GrilleGraphique(3 * 3);
+		new GrilleGraphique(5 * 5, "img//dimi.png");
 	}
 
+	/**
+	 * La JFrame utilisée.
+	 */
 	private JFrame frame;
+	/**
+	 * Le JPanel contenu par la JFrame, et qui contient les cases du Taquin.
+	 */
 	private JPanel panel;
-
+	/**
+	 * Tableau d'images qui sert à stocker les images pour initialiser les cases. À
+	 * noter qu'on utilise ce tableau uniquement pour l'initialisation des cases
+	 * avec leur image. Donc ce tableau n'est jamais modifié par le programme, et
+	 * les images sont stockées dans l'ordre.
+	 */
 	private ImageIcon[] imgs;
+	/**
+	 * Tableau de cases qui sert à initialiser les cases dans l'ordre. Quand on
+	 * déplace une case, et pour mettre à jour la grille graphique, on vide le panel
+	 * puis on rajoute toutes les cases dans le bon ordre.
+	 */
 	private Case[] cases;
-	private final int dim;
+	/**
+	 * Chemin de l'image finale du Taquin.
+	 */
+	private final String imagePath;
 
-	public GrilleGraphique(int size) {
+	/**
+	 * Construit une GrilleGraphique à partir de la taille totale de cases.
+	 * 
+	 * @param size Le nombre de cases total.
+	 */
+	public GrilleGraphique(int size, final String path) {
 		super(size);
+		imagePath = path;
 		imgs = new ImageIcon[size];
 		cases = new Case[size];
-		dim = (int) Math.sqrt(size);
+
 		initFrame();
 	}
 
@@ -41,23 +66,29 @@ public class GrilleGraphique extends Grille {
 		frame = new JFrame("Jeu du Taquin");
 		frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		panel = new JPanel(new GridLayout(dim, dim, 1, 1));
-		decouperImage("img//dimi.png");
+		decouperImage();
 
-		for (int i = 0; i < size; i++)
-			cases[i] = new Case(i, imgs[ordre[i]]);
+		for (int i = 0; i < size; i++) {
+			cases[i] = new Case(i, imgs[i]);
+		}
 
 		updateGrille();
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 	}
 
-	private void decouperImage(String path) {
-		if (path == null)
+	/**
+	 * Découpe l'image totale originale en fonction de la dimension et stocke chaque
+	 * petite image dans le tableau d'image.
+	 */
+	private void decouperImage() {
+		if (imagePath == null)
 			throw new IllegalArgumentException("L'image est null.");
 
-		ImageIcon img = new ImageIcon(path);
+		ImageIcon img = new ImageIcon(imagePath);
 		if (img.getIconWidth() != img.getIconHeight())
 			throw new IllegalArgumentException("L'image n'est pas carrée.");
 
@@ -70,13 +101,17 @@ public class GrilleGraphique extends Grille {
 		for (int i = 0; i < dim; i++)
 			for (int j = 0; j < dim; j++) {
 				int idx = i * dim + j;
-				imgs[idx] = idx == size - 1 ? new ImageIcon("") : new ImageIcon(buff.getSubimage(i * l, j * l, l, l));
+				imgs[idx] = idx == size - 1 ? new ImageIcon("") : new ImageIcon(buff.getSubimage(j * l, i * l, l, l));
 			}
 	}
 
+	/**
+	 * Met à jour la grille en replaçant toutes les cases dans le bon ordre.
+	 */
 	public void updateGrille() {
 		panel.removeAll();
-		for (Case c : cases)
-			panel.add(c);
+		for (int i = 0; i < size; i++)
+			panel.add(cases[ordre.get(i)]);
+		panel.revalidate();
 	}
 }
