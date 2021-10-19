@@ -1,5 +1,5 @@
 package taquin;
-//cc
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -10,7 +10,7 @@ import java.awt.MediaTracker;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
+//cc
 /**
  * Décrit une case de Taquin. Une case possède une image est doit posséder un
  * évènement lorsque l'on clique dessus.
