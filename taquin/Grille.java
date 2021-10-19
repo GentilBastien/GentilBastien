@@ -16,7 +16,7 @@ import org.eclipse.collections.impl.list.Interval;
  */
 public class Grille {
 	/**
-	 * La taille totale de cases dans le jeu.
+	 * La taille totale de cases dans le jeu de Taquin.
 	 */
 	protected final int size;
 	/**

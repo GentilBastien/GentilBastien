@@ -27,7 +27,7 @@ public class Case extends JButton {
 	 */
 	public static final Font font = new Font("Tahoma", Font.BOLD, 20);
 	/**
-	 * La valeur de la case.
+	 * La valeur de la case actuelle.
 	 */
 	private final int value;
 	/**

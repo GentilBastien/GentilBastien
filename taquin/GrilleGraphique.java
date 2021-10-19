@@ -119,7 +119,8 @@ public class GrilleGraphique extends Grille {
 	}
 
 	/**
-	 * Met à jour la grille en replaçant toutes les cases dans le bon ordre.
+	 * Met à jour la grille en replaçant toutes les cases dans le bon ordre, puis
+	 * revalide le panel.
 	 */
 	public void updateGrille() {
 		panel.removeAll();
