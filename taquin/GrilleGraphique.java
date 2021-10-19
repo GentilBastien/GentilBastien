@@ -25,7 +25,7 @@ public class GrilleGraphique extends Grille {
 	}
 
 	/**
-	 * La JFrame utilisée.
+	 * La JFrame utilisée pour le jeu.
 	 */
 	private JFrame frame;
 	/**

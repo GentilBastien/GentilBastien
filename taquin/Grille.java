@@ -61,7 +61,7 @@ public class Grille {
 	 */
 	public void deplacerCase(int value) {
 		/**
-		 * check si la case en param est valide.
+		 * check si la case en paramètre est valide.
 		 */
 		if (value < 0 || value > size)
 			throw new IllegalArgumentException("Value out of bounds.");
