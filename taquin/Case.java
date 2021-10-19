@@ -10,7 +10,6 @@ import java.awt.MediaTracker;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 /**
  * Décrit une case de Taquin. Une case possède une image est doit posséder un
@@ -28,10 +27,6 @@ public class Case extends JButton {
 	 */
 	public static final Font font = new Font("Tahoma", Font.BOLD, 20);
 	/**
-	 * L'image de la case.
-	 */
-	private final ImageIcon img;
-	/**
 	 * La valeur de la case.
 	 */
 	private final int value;
@@ -39,6 +34,8 @@ public class Case extends JButton {
 	 * Indique si "this" est une case blanche ou non.
 	 */
 	private final boolean isBlank;
+	
+	private final ImageIcon img;
 
 	/**
 	 * Construit une Case avec sa valeur (valeur qui est égale à son index si elle
@@ -54,17 +51,19 @@ public class Case extends JButton {
 
 		if (isBlank) {
 			setEnabled(false);
+			setBackground(Color.WHITE);
 			return;
 		}
+
 		/**
 		 * Ajout du numéro sur la case
 		 */
 		final JLabel numero = new JLabel(String.valueOf(value + 1));
-		numero.setPreferredSize(getPreferredSize());
 		numero.setFont(font);
 		numero.setForeground(Color.GREEN);
-		numero.setHorizontalAlignment(SwingConstants.CENTER);
 		super.add(numero, BorderLayout.CENTER);
+		setIcon(img);
+
 	}
 
 	/**
@@ -72,17 +71,12 @@ public class Case extends JButton {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if (isBlank) {
-			setBackground(Color.WHITE);
-			return;
-		}
 		/**
 		 * On créé une Image rescale de l'originale à chaque fois qu'on doit repeindre.
-		 * On fait ça pour être sûr que l'image dessinée ait toujours la bonne
-		 * dimension.
+		 * On ré-affecte pour toujours rescale à partir de l'originale (pour pas perdre en qualité)
 		 */
 		Image image = img.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT);
-		new ImageIcon(image).paintIcon(this, g, 0, 0);
+		setIcon(new ImageIcon(image));
 	}
 
 	/**
