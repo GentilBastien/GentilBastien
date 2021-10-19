@@ -29,7 +29,7 @@ public class GrilleGraphique extends Grille {
 	 */
 	private JFrame frame;
 	/**
-	 * Le JPanel contenu par la JFrame, et qui contient les cases du Taquin.
+	 * Le JPanel contenu par la JFrame, et qui contient les cases du Taquin./
 	 */
 	private JPanel panel;
 	/**
