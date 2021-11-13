@@ -7,7 +7,7 @@ import java.util.List;
 import org.eclipse.collections.impl.list.Interval;
 
 /**
- * Décrit une grille de Taquin. Une grille de Taquin doit être carrée.
+ * Décrit une grille de Taquin fonctionnelle. Une grille de Taquin doit être carrée.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3

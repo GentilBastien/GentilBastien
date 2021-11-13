@@ -12,8 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
- * Décrit une case de Taquin. Une case possède une image est doit posséder un
- * évènement lorsque l'on clique dessus.
+ * Décrit une case de Taquin. Une case possède une image et un chiffre est doit
+ * posséder un évènement lorsque l'on clique dessus.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
@@ -34,7 +34,7 @@ public class Case extends JButton {
 	 * Indique si "this" est une case blanche ou non.
 	 */
 	private final boolean isBlank;
-	
+
 	private final ImageIcon img;
 
 	/**
@@ -73,7 +73,8 @@ public class Case extends JButton {
 		super.paintComponent(g);
 		/**
 		 * On créé une Image rescale de l'originale à chaque fois qu'on doit repeindre.
-		 * On ré-affecte pour toujours rescale à partir de l'originale (pour pas perdre en qualité)
+		 * On ré-affecte pour toujours rescale à partir de l'originale (pour pas perdre
+		 * en qualité)
 		 */
 		Image image = img.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT);
 		setIcon(new ImageIcon(image));

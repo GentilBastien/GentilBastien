@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Classe qui décrit l'interface d'une grille de Taquin.
+ * Classe qui décrit l'interface graphique d'une grille de Taquin.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 public class GrilleGraphique extends Grille {
 
 	public static void main(String[] args) {
-		new GrilleGraphique(5 * 5, "img//dimi.png");
+		new GrilleGraphique(3 * 3, "img//dimi.png");
 	}
 
 	/**
@@ -68,9 +68,11 @@ public class GrilleGraphique extends Grille {
 		frame = new JFrame("Jeu du Taquin");
 		frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
 		panel = new JPanel(new GridLayout(dim, dim, 1, 1));
+		/*
+		 * Initialise les petites images découpées.
+		 */
 		decouperImage();
 
 		for (int i = 0; i < size; i++) {
@@ -95,7 +97,7 @@ public class GrilleGraphique extends Grille {
 
 	/**
 	 * Découpe l'image totale originale en fonction de la dimension et stocke chaque
-	 * petite image dans le tableau d'image.
+	 * petite image dans le tableau d'image pour initialiser chacune d'elles.
 	 */
 	private void decouperImage() {
 		if (imagePath == null)
@@ -104,9 +106,13 @@ public class GrilleGraphique extends Grille {
 		ImageIcon img = new ImageIcon(imagePath);
 		if (img.getIconWidth() != img.getIconHeight())
 			throw new IllegalArgumentException("L'image n'est pas carrée.");
-
+		/*
+		 * La taille préférée est celle de l'image par défaut telle qu'elle est lue.
+		 */
 		int preferredSize = img.getIconWidth(), l = preferredSize / dim;
-
+		/*
+		 * On créé un contexte graphique dans lequel on dessine notre image.
+		 */
 		BufferedImage buff = new BufferedImage(preferredSize, preferredSize, BufferedImage.TYPE_INT_RGB);
 		Graphics g = buff.createGraphics();
 		g.drawImage(img.getImage(), 0, 0, null);
