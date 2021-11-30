@@ -6,8 +6,12 @@ import java.util.List;
 
 import org.eclipse.collections.impl.list.Interval;
 
+import taquin.heuristique.DistanceManhattan;
+import taquin.heuristique.Heuristique;
+
 /**
- * Décrit une grille de Taquin fonctionnelle. Une grille de Taquin doit être carrée.
+ * Décrit une grille de Taquin fonctionnelle. Une grille de Taquin doit être
+ * carrée.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
@@ -15,6 +19,12 @@ import org.eclipse.collections.impl.list.Interval;
  *
  */
 public class Grille {
+	public static void main(String[] args) {
+		Grille g = new Grille(3 * 3);
+		System.out.println(g.ETAT_FINAL);
+		System.out.println(g.ordre);
+		//g.resoudreGrille();
+	}
 	/**
 	 * La taille totale de cases dans le jeu de Taquin.
 	 */
@@ -27,6 +37,14 @@ public class Grille {
 	 * Une liste d'entiers qui correspond à l'ordre actuel des cases dans la grille.
 	 */
 	protected List<Integer> ordre;
+	/**
+	 * Une liste d'entiers qui correspond à l'ordre des cases de la grille à l'état final.
+	 */
+	protected List<Integer> ETAT_FINAL;
+	/**
+	 * L'heuristique utilisée pour résoudre cette Grille.
+	 */
+	protected Heuristique heuristique;
 
 	/**
 	 * Construit une <code>Grille</code>.
@@ -39,6 +57,8 @@ public class Grille {
 		this.size = size;
 		dim = (int) Math.sqrt(size);
 		constructRandomGrid();
+
+		heuristique = new DistanceManhattan();
 	}
 
 	/**
@@ -46,10 +66,18 @@ public class Grille {
 	 * la grille. L'ordre initial est aléatoire. À noter que la case blanche se
 	 * situe toujours en dernière position au début du jeu.
 	 */
-	private void constructRandomGrid() {
-		ordre = new ArrayList<>(Interval.zeroTo(size - 1));
+	private final void constructRandomGrid() {
+		ETAT_FINAL = new ArrayList<>(Interval.zeroTo(size - 1));
+		ordre = new ArrayList<>(ETAT_FINAL);
 		Collections.shuffle(ordre);
 		Collections.swap(ordre, get(size - 1), size - 1);
+	}
+
+	/**
+	 * Résouds la Grille de taquin avec l'heuristique choisie.
+	 */
+	protected void resoudreGrille() {
+		while(!heuristique.computeNextMove(ordre, ETAT_FINAL));
 	}
 
 	/**
@@ -59,7 +87,7 @@ public class Grille {
 	 * 
 	 * @param value La valeur de la case à déplacer.
 	 */
-	public void deplacerCase(int value) {
+	protected void deplacerCase(int value) {
 		/**
 		 * check si la case en paramètre est valide.
 		 */
