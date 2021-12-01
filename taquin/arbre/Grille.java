@@ -14,9 +14,11 @@ public class Grille extends DefaultMutableTreeNode {
 	public static final List<Integer> ORDRE_FINAL = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8);
 
 	private List<Integer> ordre;
+	private Grille papa;
 	private int dim, depth;
 
-	public Grille(int depth, List<Integer> ordre) {
+	public Grille(Grille papa, int depth, List<Integer> ordre) {
+		this.papa = papa;
 		this.depth = depth;
 
 		if (ordre == null)
@@ -24,8 +26,8 @@ public class Grille extends DefaultMutableTreeNode {
 		setUserObject(ordre);
 		this.ordre = ordre;
 		this.dim = (int) Math.sqrt(ordre.size());
-
-		if (depth == 10 || ordre.equals(ORDRE_FINAL))
+		
+		if (depth == 25 || ordre.equals(ORDRE_FINAL))
 			return;
 		addChildrenToThisNode();
 	}
@@ -54,12 +56,9 @@ public class Grille extends DefaultMutableTreeNode {
 			List<Integer> newOrdre = new ArrayList<Integer>(ordre);
 			Collections.swap(newOrdre, idxWhiteCell, idxCellSwap);
 
-			Grille papa = (Grille)getParent();
-			if (papa != null && newOrdre.equals(papa.ordre)) {
-				return;
-			}
-			
-			Grille newGrille = new Grille(depth + 1, newOrdre);
+			Grille newGrille = new Grille(this, depth + 1, newOrdre);
+			if(papa != null && newOrdre.equals(papa.ordre))
+				continue;			
 			add(newGrille);
 		}
 	}
