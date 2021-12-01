@@ -11,17 +11,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Classe qui décrit l'interface graphique d'une grille de Taquin.
+ * Classe qui décrit l'interface graphique d'une grille mutable de Taquin.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
  * @author DESCOTILS Juli8
  *
  */
-public class GrilleGraphique extends Grille {
+public class GrilleMutableGraphique extends GrilleMutable {
 
 	public static void main(String[] args) {
-		new GrilleGraphique(3 * 3, "img//dimi.png");
+		new GrilleMutableGraphique(3 * 3, "img//dimi.png");
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class GrilleGraphique extends Grille {
 	 * 
 	 * @param size Le nombre de cases total.
 	 */
-	public GrilleGraphique(int size, final String path) {
+	public GrilleMutableGraphique(int size, final String path) {
 		super(size);
 		imagePath = path;
 		imgs = new ImageIcon[size];
@@ -68,7 +68,8 @@ public class GrilleGraphique extends Grille {
 		frame = new JFrame("Jeu du Taquin");
 		frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		;
 		panel = new JPanel(new GridLayout(dim, dim, 1, 1));
 		/*
 		 * Initialise les petites images découpées.
