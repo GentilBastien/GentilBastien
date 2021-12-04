@@ -1,33 +1,34 @@
 package taquin.heuristique;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.collections.impl.list.Interval;
+
+import taquin.arbre.Grille;
+
 /**
- * Une Heuristique permet de résoudre une Grille de Taquin à l'aide d'
+ * Une Heuristique est une méthode de résolution qui calcule une pondération
+ * pour chaque enfant et qui détermine quel chemin emprunter pour arriver à
+ * l'état final.
  *
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
  * @author DESCOTILS Juli8
  *
  */
-public abstract class Heuristique {
+public interface Heuristique {
+
+	public static final List<Integer> ORDRE_FINAL = new ArrayList<>(Interval.zeroTo(8));
+
 	/**
-	 * Nombre d'opérations faites.
-	 */
-	protected int nbEtapes;
-	
-	public Heuristique() {
-		this.nbEtapes = 0;
-	}
-	/**
-	 * Recalcule la liste d'entiers qui correspond à l'ordre des cases dans la
-	 * grille.
+	 * Parmi les Grille d'enfant proposées, l'heuristique détermine la(les)quelle(s)
+	 * sont les meilleure(s)
 	 * 
-	 * @param ordre La liste d'entiers qui correspond à l'ordre des cases dans la
-	 *              grille.
-	 * @param ordre La liste d'entiers qui correspond à l'ordre des cases de la
-	 *              grille à l'état final.
-	 * @return true si on obtient l'état final après avoir recalculé.
+	 * @param possibleEnfants les Grilles d'enfants qui sont proposées par l'arbre
+	 *                        des possibilités.
+	 * @return les Grille enfants choisies.
 	 */
-	public abstract boolean computeNextMove(List<Integer> ordre, List<Integer> etatFinal);
+	public abstract Collection<Grille> chooseBestChildren(Collection<Grille> possibleEnfants);
 }

@@ -19,7 +19,6 @@ public class GrilleMutable {
 	public static void main(String[] args) {
 		GrilleMutable g = new GrilleMutable(3 * 3);
 		System.out.println(g.ordre);
-		// g.resoudreGrille();
 	}
 
 	/**
