@@ -12,6 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+/**
+ * 
+ * @author basti
+ *
+ */
 public class FenetreArbre extends JFrame {
 	private static final long serialVersionUID = 1L;
 

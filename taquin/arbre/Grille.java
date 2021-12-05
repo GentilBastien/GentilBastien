@@ -52,7 +52,7 @@ public class Grille extends DefaultMutableTreeNode {
 			System.out.println("trouvé ! A " + depth + " de profondeur !");
 			return;
 		}
-		if (depth == 80)
+		if (depth == 50)
 			return;
 		
 		int idxWhiteCell = get(dim * dim - 1);
