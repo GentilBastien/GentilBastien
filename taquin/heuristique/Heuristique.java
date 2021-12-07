@@ -1,7 +1,6 @@
 package taquin.heuristique;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.collections.impl.list.Interval;
@@ -23,12 +22,9 @@ public interface Heuristique {
 	public static final List<Integer> ORDRE_FINAL = new ArrayList<>(Interval.zeroTo(8));
 
 	/**
-	 * Parmi les Grille d'enfant proposées, l'heuristique détermine la(les)quelle(s)
-	 * sont les meilleure(s)
 	 * 
-	 * @param possibleEnfants les Grilles d'enfants qui sont proposées par l'arbre
-	 *                        des possibilités.
-	 * @return les Grille enfants choisies.
+	 * @param g
+	 * @return
 	 */
-	public abstract Collection<Grille> chooseBestChildren(Collection<Grille> possibleEnfants);
+	public abstract int computesWeight(Grille g);
 }

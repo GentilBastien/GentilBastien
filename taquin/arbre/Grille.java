@@ -9,28 +9,29 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.eclipse.collections.impl.list.Interval;
 
-import taquin.heuristique.DistanceManhattan;
 import taquin.heuristique.Heuristique;
 
-public class Grille extends DefaultMutableTreeNode {
+public class Grille extends DefaultMutableTreeNode implements Comparable<Grille> {
 	private static final long serialVersionUID = 1L;
 
 	public static final List<Integer> ORDRE_FINAL = new ArrayList<>(Interval.zeroTo(8));
 
 	private List<Integer> ordre;
-	private int dim, depth;
-	
+	private Grille papa;
+	private int dim, depth, weight;
+
 	private Heuristique heuristique;
 
-	public Grille(int depth, List<Integer> ordre) {
+	public Grille(Heuristique heuristique, Grille papa, int depth, List<Integer> ordre) {
 		this.depth = depth;
-		this.heuristique = new DistanceManhattan();
+		this.heuristique = heuristique;
+		this.papa = papa;
 
-		if (ordre == null)
-			throw new IllegalArgumentException("Case sans ordre interdite.");
-		setUserObject(ordre);
 		this.ordre = ordre;
+		setUserObject(ordre);
+
 		this.dim = (int) Math.sqrt(ordre.size());
+		this.weight = heuristique.computesWeight(this);
 	}
 
 	private Collection<Integer> adjacentCells() {
@@ -47,16 +48,18 @@ public class Grille extends DefaultMutableTreeNode {
 		return adjacentCells;
 	}
 
-	public void addChildrenToThisNode() {
+	public Collection<Grille> computesChildrenToThisNode() {
 		if (ordre.equals(ORDRE_FINAL)) {
 			System.out.println("trouvé ! A " + depth + " de profondeur !");
-			return;
+			return new ArrayList<>();
 		}
-		if (depth == 50)
-			return;
+		if (depth == 28)
+			return new ArrayList<>();
+		if (papa != null)
+			papa.add(this);
 		
 		int idxWhiteCell = get(dim * dim - 1);
-		Collection<Grille> enfants = new ArrayList<>();
+		Collection<Grille> enfants = new ArrayList<Grille>();
 		/*
 		 * Pour chaque case voisine de la case blanche, il y a une combinaison possible.
 		 * Donc on créé une nouvelle Grille "enfant" pour chacune de ces combinaisons.
@@ -72,25 +75,21 @@ public class Grille extends DefaultMutableTreeNode {
 			 * On créé la nouvelle Grille enfant ici, avec cette Grille courante en parent,
 			 * une profondeur incrémentée, et l'ordre des cases qui vient d'être construit.
 			 */
-			Grille newGrille = new Grille(depth + 1, newOrdre);
+			Grille newGrille = new Grille(heuristique, this, depth + 1, newOrdre);
 			/*
 			 * Pour éviter les boucles infinies, on n'ajoute pas les grilles qui re-font le
 			 * même coup qui a construit la grille courante.
 			 */
-			Grille papa = (Grille)getParent();
 			if (papa != null && newOrdre.equals(papa.ordre))
 				continue;
 			enfants.add(newGrille);
 		}
-		/*
-		 * Parmi toutes les grilles enfants, c'est l'heuristique qui choisit lesquelles
-		 * ajouter à ce noeud.
-		 */
-		Collection<Grille> chosenEnfants = heuristique.chooseBestChildren(enfants);
-		for (Grille g : chosenEnfants) {
-			add(g); //on ajoute d'abord dans l'arbre pour avoir une visibilité sur les parents
-			g.addChildrenToThisNode();
-		}
+		return enfants;
+	}
+
+	@Override
+	public int compareTo(Grille o) {
+		return weight - o.weight;
 	}
 
 	public boolean equals(Object o) {
@@ -131,5 +130,9 @@ public class Grille extends DefaultMutableTreeNode {
 
 	public List<Integer> getOrdre() {
 		return ordre;
+	}
+	
+	public Grille getPapa() {
+		return papa;
 	}
 }
