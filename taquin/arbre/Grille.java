@@ -34,32 +34,18 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 		this.weight = heuristique.computesWeight(this);
 	}
 
-	private Collection<Integer> adjacentCells() {
-		int idxWhiteCell = get(dim * dim - 1);
-		Collection<Integer> adjacentCells = new ArrayList<>();
-		if (col(idxWhiteCell) != 0)
-			adjacentCells.add(idxWhiteCell - 1);
-		if (col(idxWhiteCell) != dim - 1)
-			adjacentCells.add(idxWhiteCell + 1);
-		if (row(idxWhiteCell) != 0)
-			adjacentCells.add(idxWhiteCell - dim);
-		if (row(idxWhiteCell) != dim - 1)
-			adjacentCells.add(idxWhiteCell + dim);
-		return adjacentCells;
-	}
-
 	public Collection<Grille> computesChildrenToThisNode() {
 		if (ordre.equals(ORDRE_FINAL)) {
-			System.out.println("trouvé ! A " + depth + " de profondeur !");
-			return new ArrayList<>();
+			System.out.println("trouvé ! A une profondeur de " + depth + " !");
+			return null;
 		}
-		if (depth == 28)
-			return new ArrayList<>();
-		if (papa != null)
-			papa.add(this);
 		
-		int idxWhiteCell = get(dim * dim - 1);
 		Collection<Grille> enfants = new ArrayList<Grille>();
+		
+		if (depth == 10)
+			return enfants;
+
+		int idxWhiteCell = get(dim * dim - 1);
 		/*
 		 * Pour chaque case voisine de la case blanche, il y a une combinaison possible.
 		 * Donc on créé une nouvelle Grille "enfant" pour chacune de ces combinaisons.
@@ -111,6 +97,20 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 		}
 		return sb.toString();
 	}
+	
+	private Collection<Integer> adjacentCells() {
+		int idxWhiteCell = get(dim * dim - 1);
+		Collection<Integer> adjacentCells = new ArrayList<>();
+		if (col(idxWhiteCell) != 0)
+			adjacentCells.add(idxWhiteCell - 1);
+		if (col(idxWhiteCell) != dim - 1)
+			adjacentCells.add(idxWhiteCell + 1);
+		if (row(idxWhiteCell) != 0)
+			adjacentCells.add(idxWhiteCell - dim);
+		if (row(idxWhiteCell) != dim - 1)
+			adjacentCells.add(idxWhiteCell + dim);
+		return adjacentCells;
+	}
 
 	int get(int cell) {
 		return ordre.indexOf(cell);
@@ -131,8 +131,12 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 	public List<Integer> getOrdre() {
 		return ordre;
 	}
-	
+
 	public Grille getPapa() {
 		return papa;
+	}
+
+	public int getWeight() {
+		return weight;
 	}
 }

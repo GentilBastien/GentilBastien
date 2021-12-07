@@ -4,6 +4,13 @@ import java.util.List;
 
 import taquin.arbre.Grille;
 
+/**
+ * 
+ * @author GATTACIECCA Basti1
+ * @author POLYDORAS Dimi3
+ * @author DESCOTILS Juli8
+ *
+ */
 public class DistanceHamming implements Heuristique {
 
 	@Override
