@@ -8,7 +8,6 @@ public class DistanceManhattan implements Heuristique {
 
 	@Override
 	public int computesWeight(Grille g) {
-		int dim = g.getDim();
 		int distance = 0;
 		List<Integer> ordre = g.getOrdre();
 
@@ -18,7 +17,7 @@ public class DistanceManhattan implements Heuristique {
 			 * note que num est égal son index dans ORDRE_FINAL.
 			 */
 			int idx = ordre.indexOf(num);
-			distance += Math.abs(num % dim - idx % dim) + Math.abs(num / dim - idx / dim);
+			distance += Math.abs(num % DIM - idx % DIM) + Math.abs(num / DIM - idx / DIM);
 		}
 
 		return distance;

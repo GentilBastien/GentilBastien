@@ -10,9 +10,9 @@ public class DistanceHamming implements Heuristique {
 	public int computesWeight(Grille g) {
 		List<Integer> ordre = g.getOrdre();
 
-		int score = 0, size = ordre.size();
+		int score = 0;
 
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < SIZE; i++)
 			if (ordre.get(i) != ORDRE_FINAL.get(i))
 				score++;
 

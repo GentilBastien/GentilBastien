@@ -20,7 +20,8 @@ import taquin.arbre.Grille;
 public interface Heuristique {
 
 	public static final List<Integer> ORDRE_FINAL = new ArrayList<>(Interval.zeroTo(8));
-
+	public static final int DIM = 3;
+	public static final int SIZE = DIM * DIM;
 	/**
 	 * 
 	 * @param g
