@@ -12,7 +12,7 @@ import taquin.arbre.Grille;
  * @author DESCOTILS Juli8
  *
  */
-public class DistanceManhattan implements Heuristique {
+public class DistanceOfTheCotils implements Heuristique {
 
 	@Override
 	public int computesWeight(Grille g) {
@@ -25,7 +25,8 @@ public class DistanceManhattan implements Heuristique {
 			 * note que num est égal son index dans ORDRE_FINAL.
 			 */
 			int idx = ordre.indexOf(i);
-			distance += Math.abs(i % Arbre.DIM - idx % Arbre.DIM) + Math.abs(i / Arbre.DIM - idx / Arbre.DIM);
+			distance += idx % Arbre.DIM + idx / Arbre.DIM + Math.abs(i % Arbre.DIM - idx % Arbre.DIM)
+					+ Math.abs(i / Arbre.DIM - idx / Arbre.DIM);
 		}
 
 		return distance;
@@ -33,6 +34,7 @@ public class DistanceManhattan implements Heuristique {
 
 	@Override
 	public String toString() {
-		return "[Heuristique= Distance de Manhattan]";
+		return "[Heuristique= Distance of the Cotils]";
 	}
+	
 }

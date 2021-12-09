@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import taquin.arbre.Grille;
 
-public class Algo_DepthFirst extends Algorithme {
+public class Algo_BreadthFirst extends Algorithme {
 
-	public Algo_DepthFirst(Grille etatInitial) {
+	public Algo_BreadthFirst(Grille etatInitial) {
 		super(etatInitial);
 	}
 
@@ -27,8 +27,8 @@ public class Algo_DepthFirst extends Algorithme {
 			return nbCoups;
 
 		for (Grille g : firstChildren) {
-			first.insert(g, 0);
-			memoire.addFirst(g);
+			first.add(g);
+			memoire.addLast(g);
 		}
 
 		nbCoups++;
@@ -37,6 +37,6 @@ public class Algo_DepthFirst extends Algorithme {
 
 	@Override
 	public String toString() {
-		return "[Algo= Depth-first]";
+		return "[Algo= Breadth-first]";
 	}
 }

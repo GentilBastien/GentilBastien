@@ -15,4 +15,7 @@ public abstract class Algorithme {
 	}
 	
 	public abstract int nextMove();
+	
+	public abstract String toString();
+	
 }

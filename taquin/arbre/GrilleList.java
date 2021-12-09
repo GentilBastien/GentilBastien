@@ -61,13 +61,6 @@ public class GrilleList extends LinkedList<Grille> {
 	/**
 	 * Unsupported operation
 	 */
-	public void addLast(Grille g) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * Unsupported operation
-	 */
 	public boolean addAll(int index, Collection<? extends Grille> c) {
 		throw new UnsupportedOperationException();
 	}

@@ -30,12 +30,16 @@ public class Algo_BestFirst extends Algorithme {
 
 		memoire.addAll(mostrelevantChildren);
 
-		Object[] arr = mostrelevantChildren.toArray();
-		for (int i = arr.length - 1; i >= 0; i--)
-			mostRelevant.add((Grille) arr[i]);
+		for (Grille g : mostrelevantChildren)
+			mostRelevant.insert(g, 0);
 
 		nbCoups++;
 		return nextMove();
+	}
+
+	@Override
+	public String toString() {
+		return "[Algo= Best-first]";
 	}
 
 }

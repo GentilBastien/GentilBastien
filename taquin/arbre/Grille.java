@@ -7,18 +7,14 @@ import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.eclipse.collections.impl.list.Interval;
-
 import taquin.heuristique.Heuristique;
 
 public class Grille extends DefaultMutableTreeNode implements Comparable<Grille> {
 	private static final long serialVersionUID = 1L;
 
-	public static final List<Integer> ORDRE_FINAL = new ArrayList<>(Interval.zeroTo(8));
-
 	private List<Integer> ordre;
 	private Grille papa;
-	private int dim, depth, weight;
+	private int depth, weight;
 
 	private Heuristique heuristique;
 
@@ -30,13 +26,12 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 		this.ordre = ordre;
 		setUserObject(ordre);
 
-		this.dim = (int) Math.sqrt(ordre.size());
 		this.weight = heuristique.computesWeight(this);
 	}
 
 	public Collection<Grille> computesChildrenToThisNode() {
-		if (ordre.equals(ORDRE_FINAL)) {
-			System.out.println("trouvé ! A une profondeur de " + depth + " !");
+		if (ordre.equals(Arbre.ORDRE_FINAL)) {
+			System.out.println("Solution trouvée ! Profondeur = " + depth);
 			return null;
 		}
 		
@@ -45,7 +40,7 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 		if (depth == 10)
 			return enfants;
 
-		int idxWhiteCell = get(dim * dim - 1);
+		int idxWhiteCell = get(Arbre.SIZE - 1);
 		/*
 		 * Pour chaque case voisine de la case blanche, il y a une combinaison possible.
 		 * Donc on créé une nouvelle Grille "enfant" pour chacune de ces combinaisons.
@@ -85,30 +80,31 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < dim; i++) {
-			sb.append("[");
-			for (int j = 0; j < dim; j++) {
-				sb.append(ordre.get(i * dim + j));
-				sb.append(" ");
-			}
-			sb.deleteCharAt(sb.length() - 1);
-			sb.append("]\n");
-		}
-		return sb.toString();
+//		StringBuilder sb = new StringBuilder();
+//		for (int i = 0; i < dim; i++) {
+//			sb.append("[");
+//			for (int j = 0; j < dim; j++) {
+//				sb.append(ordre.get(i * dim + j));
+//				sb.append(" ");
+//			}
+//			sb.deleteCharAt(sb.length() - 1);
+//			sb.append("]\n");
+//		}
+//		return sb.toString();
+		return String.valueOf(weight);
 	}
 	
 	private Collection<Integer> adjacentCells() {
-		int idxWhiteCell = get(dim * dim - 1);
+		int idxWhiteCell = get(Arbre.SIZE - 1);
 		Collection<Integer> adjacentCells = new ArrayList<>();
 		if (col(idxWhiteCell) != 0)
 			adjacentCells.add(idxWhiteCell - 1);
-		if (col(idxWhiteCell) != dim - 1)
+		if (col(idxWhiteCell) != Arbre.DIM - 1)
 			adjacentCells.add(idxWhiteCell + 1);
 		if (row(idxWhiteCell) != 0)
-			adjacentCells.add(idxWhiteCell - dim);
-		if (row(idxWhiteCell) != dim - 1)
-			adjacentCells.add(idxWhiteCell + dim);
+			adjacentCells.add(idxWhiteCell - Arbre.DIM);
+		if (row(idxWhiteCell) != Arbre.DIM - 1)
+			adjacentCells.add(idxWhiteCell + Arbre.DIM);
 		return adjacentCells;
 	}
 
@@ -117,15 +113,11 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 	}
 
 	int row(int cellIdx) {
-		return cellIdx / dim;
+		return cellIdx / Arbre.DIM;
 	}
 
 	int col(int cellIdx) {
-		return cellIdx % dim;
-	}
-
-	public int getDim() {
-		return dim;
+		return cellIdx % Arbre.DIM;
 	}
 
 	public List<Integer> getOrdre() {

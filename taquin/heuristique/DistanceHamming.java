@@ -2,6 +2,7 @@ package taquin.heuristique;
 
 import java.util.List;
 
+import taquin.arbre.Arbre;
 import taquin.arbre.Grille;
 
 /**
@@ -19,10 +20,15 @@ public class DistanceHamming implements Heuristique {
 
 		int score = 0;
 
-		for (int i = 0; i < SIZE; i++)
-			if (ordre.get(i) != ORDRE_FINAL.get(i))
+		for (int i = 0; i < Arbre.SIZE; i++)
+			if (ordre.get(i) != i)
 				score++;
 
 		return score;
+	}
+	
+	@Override
+	public String toString() {
+		return "[Heuristique= Distance de Hamming]";
 	}
 }

@@ -59,23 +59,16 @@ public class FenetreArbre extends JFrame {
 			Grille g = (Grille) value;
 			JPanel tiret = new JPanel(new BorderLayout(10, 0));
 
-			JPanel matrix = new JPanel(new GridLayout(g.getDim(), g.getDim(), 15, 1));
+			JPanel matrix = new JPanel(new GridLayout(Arbre.DIM, Arbre.DIM, 15, 1));
 			for (int i : g.getOrdre()) {
 				JLabel lab = new JLabel(String.valueOf(i));
+				
+				matrix.setForeground(selected ? textSelectionColor : textNonSelectionColor);
+				matrix.setBackground(selected ? backgroundSelectionColor : backgroundNonSelectionColor);
+				tiret.setForeground(selected ? textSelectionColor : textNonSelectionColor);
+				tiret.setBackground(selected ? backgroundSelectionColor : backgroundNonSelectionColor);
 
-				if (selected) {
-					matrix.setForeground(textSelectionColor);
-					matrix.setBackground(backgroundSelectionColor);
-					tiret.setForeground(textSelectionColor);
-					tiret.setBackground(backgroundSelectionColor);
-				} else {
-					matrix.setForeground(textNonSelectionColor);
-					matrix.setBackground(backgroundNonSelectionColor);
-					tiret.setForeground(textNonSelectionColor);
-					tiret.setBackground(backgroundNonSelectionColor);
-				}
-
-				if (i == g.getDim() * g.getDim() - 1)
+				if (i == Arbre.SIZE - 1)
 					lab.setForeground(Color.RED);
 				matrix.add(lab);
 			}
