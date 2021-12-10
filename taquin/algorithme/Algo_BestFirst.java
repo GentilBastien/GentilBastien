@@ -1,6 +1,7 @@
 package taquin.algorithme;
 
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import taquin.arbre.Grille;
 
@@ -11,10 +12,10 @@ public class Algo_BestFirst extends Algorithme {
 	}
 
 	@Override
-	public int nextMove() {
+	public int nextMove() {		
 		if (memoire.isEmpty()) {
-			System.out.println("Memoire vide");
-			return nbCoups;
+			//System.out.println("Profondeur max atteinte -> mémoire vidée.");
+			return -1;
 		}
 		/*
 		 * On prend la Grille la mieux pondérée par l'heuristique.
@@ -24,12 +25,12 @@ public class Algo_BestFirst extends Algorithme {
 		/*
 		 * On calcule ses enfants et on les ajoute tous dans la liste triée.
 		 */
-		Collection<Grille> mostrelevantChildren = mostRelevant.computesChildrenToThisNode();
+		List<Grille> mostrelevantChildren = mostRelevant.computesChildrenToThisNode();
 		if (mostrelevantChildren == null)
 			return nbCoups;
 
+		Collections.reverse(mostrelevantChildren);
 		memoire.addAll(mostrelevantChildren);
-
 		for (Grille g : mostrelevantChildren)
 			mostRelevant.insert(g, 0);
 

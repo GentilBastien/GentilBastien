@@ -1,6 +1,5 @@
 package taquin;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class GrilleMutable {
 	 * situe toujours en dernière position au début du jeu.
 	 */
 	private final void constructRandomGrid() {
-		ordre = new ArrayList<>(Interval.zeroTo(size - 1));
+		ordre = Interval.zeroTo(size - 1);
 		Collections.shuffle(ordre);
 		Collections.swap(ordre, get(size - 1), size - 1);
 	}

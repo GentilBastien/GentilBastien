@@ -1,6 +1,6 @@
 package taquin.algorithme;
 
-import java.util.Collection;
+import java.util.List;
 
 import taquin.arbre.Grille;
 
@@ -11,10 +11,10 @@ public class Algo_BreadthFirst extends Algorithme {
 	}
 
 	@Override
-	public int nextMove() {
+	public int nextMove() {		
 		if (memoire.isEmpty()) {
-			System.out.println("Memoire vide");
-			return nbCoups;
+			//System.out.println("Profondeur max atteinte -> mémoire vidée.");
+			return -1;
 		}
 		
 		Grille first = memoire.removeFirst();
@@ -22,7 +22,7 @@ public class Algo_BreadthFirst extends Algorithme {
 		/*
 		 * On calcule ses enfants et on les ajoute tous dans la liste triée.
 		 */
-		Collection<Grille> firstChildren = first.computesChildrenToThisNode();
+		List<Grille> firstChildren = first.computesChildrenToThisNode();
 		if (firstChildren == null)
 			return nbCoups;
 

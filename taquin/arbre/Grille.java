@@ -29,15 +29,15 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 		this.weight = heuristique.computesWeight(this);
 	}
 
-	public Collection<Grille> computesChildrenToThisNode() {
+	public List<Grille> computesChildrenToThisNode() {
 		if (ordre.equals(Arbre.ORDRE_FINAL)) {
 			System.out.println("Solution trouvée ! Profondeur = " + depth);
 			return null;
 		}
 		
-		Collection<Grille> enfants = new ArrayList<Grille>();
+		GrilleList enfants = new GrilleList();
 		
-		if (depth == 10)
+		if (depth == 13)
 			return enfants;
 
 		int idxWhiteCell = get(Arbre.SIZE - 1);
@@ -65,6 +65,7 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 				continue;
 			enfants.add(newGrille);
 		}
+		
 		return enfants;
 	}
 
@@ -80,18 +81,17 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 	}
 
 	public String toString() {
-//		StringBuilder sb = new StringBuilder();
-//		for (int i = 0; i < dim; i++) {
-//			sb.append("[");
-//			for (int j = 0; j < dim; j++) {
-//				sb.append(ordre.get(i * dim + j));
-//				sb.append(" ");
-//			}
-//			sb.deleteCharAt(sb.length() - 1);
-//			sb.append("]\n");
-//		}
-//		return sb.toString();
-		return String.valueOf(weight);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < Arbre.DIM; i++) {
+			sb.append("[");
+			for (int j = 0; j < Arbre.DIM; j++) {
+				sb.append(ordre.get(i * Arbre.DIM + j));
+				sb.append(" ");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			sb.append("]\n");
+		}
+		return sb.toString();
 	}
 	
 	private Collection<Integer> adjacentCells() {

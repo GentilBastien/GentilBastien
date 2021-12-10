@@ -47,7 +47,6 @@ public class GrilleList extends LinkedList<Grille> {
 	public boolean addAll(Collection<? extends Grille> c) {
 		for (Grille g : c)
 			add(g);
-
 		return c.size() > 0;
 	}
 
