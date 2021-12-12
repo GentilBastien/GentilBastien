@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 /**
  * Décrit une case de Taquin. Une case possède une image et un chiffre est doit
- * posséder un évènement lorsque l'on clique dessus.
+ * posséder un évènement lorsque l'on clique dessus. Une Case est immutable.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3

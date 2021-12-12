@@ -5,6 +5,14 @@ import java.util.List;
 import taquin.arbre.Arbre;
 import taquin.arbre.Grille;
 
+/**
+ * Décrit l'heuristique des suites (voir rapport).
+ * 
+ * @author GATTACIECCA Basti1
+ * @author POLYDORAS Dimi3
+ * @author DESCOTILS Juli8
+ *
+ */
 public class HeuristiqueSuite implements Heuristique {
 	
 	@Override

@@ -14,6 +14,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
+ * Application qui affiche une vue graphique de l'arbre construit.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
@@ -50,6 +51,13 @@ public class FenetreArbre extends JFrame {
 		scrollPane.setViewportView(tree);
 	}
 
+	/**
+	 * Classe qui hérite de DefaultTreeCellRenderer pour customiser le rendu
+	 * graphique de nos grilles dans le JTree.
+	 * 
+	 * @author Bastien
+	 *
+	 */
 	private final class MatrixCell extends DefaultTreeCellRenderer {
 		private static final long serialVersionUID = 1L;
 
@@ -62,7 +70,7 @@ public class FenetreArbre extends JFrame {
 			JPanel matrix = new JPanel(new GridLayout(Arbre.DIM, Arbre.DIM, 15, 1));
 			for (int i : g.getOrdre()) {
 				JLabel lab = new JLabel(String.valueOf(i));
-				
+
 				matrix.setForeground(selected ? textSelectionColor : textNonSelectionColor);
 				matrix.setBackground(selected ? backgroundSelectionColor : backgroundNonSelectionColor);
 				tiret.setForeground(selected ? textSelectionColor : textNonSelectionColor);

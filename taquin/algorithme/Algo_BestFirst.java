@@ -5,6 +5,15 @@ import java.util.List;
 
 import taquin.arbre.Grille;
 
+/**
+ * Meilleur d'abord. On ajoute les enfants triés dans la grille. Le prochain
+ * coup est la grille avec le plus petit poids.
+ * 
+ * @author GATTACIECCA Basti1
+ * @author POLYDORAS Dimi3
+ * @author DESCOTILS Juli8
+ *
+ */
 public class Algo_BestFirst extends Algorithme {
 
 	public Algo_BestFirst(Grille etatInitial) {
@@ -12,9 +21,9 @@ public class Algo_BestFirst extends Algorithme {
 	}
 
 	@Override
-	public int nextMove() {		
+	public int nextMove() {
 		if (memoire.isEmpty()) {
-			//System.out.println("Profondeur max atteinte -> mémoire vidée.");
+			System.out.println("Profondeur max atteinte -> mémoire vidée.");
 			return -1;
 		}
 		/*

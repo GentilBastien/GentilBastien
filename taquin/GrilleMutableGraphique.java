@@ -91,8 +91,8 @@ public class GrilleMutableGraphique extends GrilleMutable {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Case c = (Case) e.getSource();
-			deplacerCase(c.getValue());
-			updateGrille();
+			if (deplacerCase(c.getValue()))
+				updateGrille();
 		}
 	};
 

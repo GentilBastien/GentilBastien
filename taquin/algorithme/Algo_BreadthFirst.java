@@ -4,6 +4,15 @@ import java.util.List;
 
 import taquin.arbre.Grille;
 
+/**
+ * Largeur d'abord. On ajoute les enfants en dernier. Le prochain coup est la
+ * première grille.
+ * 
+ * @author GATTACIECCA Basti1
+ * @author POLYDORAS Dimi3
+ * @author DESCOTILS Juli8
+ *
+ */
 public class Algo_BreadthFirst extends Algorithme {
 
 	public Algo_BreadthFirst(Grille etatInitial) {
@@ -11,12 +20,12 @@ public class Algo_BreadthFirst extends Algorithme {
 	}
 
 	@Override
-	public int nextMove() {		
+	public int nextMove() {
 		if (memoire.isEmpty()) {
-			//System.out.println("Profondeur max atteinte -> mémoire vidée.");
+			System.out.println("Profondeur max atteinte -> mémoire vidée.");
 			return -1;
 		}
-		
+
 		Grille first = memoire.removeFirst();
 
 		/*

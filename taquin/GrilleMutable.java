@@ -1,5 +1,6 @@
 package taquin;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class GrilleMutable {
 	 * situe toujours en dernière position au début du jeu.
 	 */
 	private final void constructRandomGrid() {
-		ordre = Interval.zeroTo(size - 1);
+		ordre = new ArrayList<Integer>(Interval.zeroTo(size - 1));
 		Collections.shuffle(ordre);
 		Collections.swap(ordre, get(size - 1), size - 1);
 	}
@@ -63,8 +64,10 @@ public class GrilleMutable {
 	 * case doit être adjacente à la case blanche.
 	 * 
 	 * @param value La valeur de la case à déplacer.
+	 * 
+	 * @return true si une case a été déplacée, false sinon.
 	 */
-	protected void deplacerCase(int value) {
+	protected boolean deplacerCase(int value) {
 		/**
 		 * check si la case en paramètre est valide.
 		 */
@@ -75,8 +78,11 @@ public class GrilleMutable {
 		 * sinon return (ne fait rien).
 		 */
 		if ((row(value) == row(size - 1) && Math.abs(get(value) - get(size - 1)) == 1)
-				|| (col(value) == col(size - 1) && Math.abs(get(value) - get(size - 1)) == dim))
+				|| (col(value) == col(size - 1) && Math.abs(get(value) - get(size - 1)) == dim)) {
 			Collections.swap(ordre, get(value), get(size - 1));
+			return true;
+		}
+		return false;
 	}
 
 	/**

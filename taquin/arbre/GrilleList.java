@@ -4,7 +4,14 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * Grille triées de la plus petite à la plus grande.
+ * Liste de grilles qui implémente quelques options pour : - ajouter une liste
+ * directement à la fin - ajouter une liste directement au début - ajouter une
+ * grille selon son ordre naturel (car grille implémente l'interface Comparable)
+ * 
+ * Cette liste de grille sert principalement à modéliser la mémoire lors du
+ * parcours de l'algorithme. Par exemple, un parcours en profondeur récupèrera
+ * toujours la grille au premier indice, et ajoutera les enfants toujours au
+ * début de la liste.
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
@@ -38,7 +45,7 @@ public class GrilleList extends LinkedList<Grille> {
 	}
 
 	/**
-	 * Ajoute toutes les Grille en paramètre à la liste courante.
+	 * Ajoute toutes les Grille en paramètre à la liste courante <b>en les triant</b>.
 	 * 
 	 * @param c Une collection de Grille.
 	 * 

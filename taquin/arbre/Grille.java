@@ -9,13 +9,32 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import taquin.heuristique.Heuristique;
 
+/**
+ * Une classe qui décrit l'état d'une grille.
+ * 
+ * @author GATTACIECCA Basti1
+ * @author POLYDORAS Dimi3
+ * @author DESCOTILS Juli8
+ *
+ */
 public class Grille extends DefaultMutableTreeNode implements Comparable<Grille> {
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * L'ordre des cases dans cette grille. Immutable.
+	 */
 	private List<Integer> ordre;
+	/**
+	 * Le père de cette grille.
+	 */
 	private Grille papa;
+	/**
+	 * La profondeur et le poids de cette grille.
+	 */
 	private int depth, weight;
-
+	/**
+	 * L'heuristique utilisée pour calculer le poids de cette grille. L'heuristique
+	 * n'est pas instanciée ici !
+	 */
 	private Heuristique heuristique;
 
 	public Grille(Heuristique heuristique, Grille papa, int depth, List<Integer> ordre) {
@@ -29,14 +48,28 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 		this.weight = heuristique.computesWeight(this);
 	}
 
+	/**
+	 * Calcule uniquement tous les enfants de cette grille courante MAIS ne les
+	 * ajoute pas en tant qu'enfants !
+	 * 
+	 * @return Une liste de grille qui contient tous les enfants de cette grille
+	 *         courante.
+	 */
 	public List<Grille> computesChildrenToThisNode() {
+		/*
+		 * Si cette grille représente un état final, les enfants ne sont pas calculés.
+		 */
 		if (ordre.equals(Arbre.ORDRE_FINAL)) {
 			System.out.println("Solution trouvée ! Profondeur = " + depth);
 			return null;
 		}
-		
+
 		GrilleList enfants = new GrilleList();
-		
+
+		/*
+		 * Si on atteint une profondeur de 13 on choisit de ne pas ajouter davantage
+		 * d'enfants (voir rapport).
+		 */
 		if (depth == 13)
 			return enfants;
 
@@ -53,19 +86,20 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 			List<Integer> newOrdre = new ArrayList<Integer>(ordre);
 			Collections.swap(newOrdre, idxWhiteCell, idxCellSwap);
 			/*
-			 * On créé la nouvelle Grille enfant ici, avec cette Grille courante en parent,
-			 * une profondeur incrémentée, et l'ordre des cases qui vient d'être construit.
+			 * On créé la nouvelle Grille enfant ici, avec toujours la même heuristique,
+			 * cette Grille courante en parent, une profondeur incrémentée, et l'ordre des
+			 * cases qui vient d'être construit.
 			 */
 			Grille newGrille = new Grille(heuristique, this, depth + 1, newOrdre);
 			/*
-			 * Pour éviter les boucles infinies, on n'ajoute pas les grilles qui re-font le
-			 * même coup qui a construit la grille courante.
+			 * Pour éviter les coups "inutiles", on ne considère pas les grilles qui sont
+			 * crées par le même coup qui a engendré la grille courante.
 			 */
 			if (papa != null && newOrdre.equals(papa.ordre))
 				continue;
 			enfants.add(newGrille);
 		}
-		
+
 		return enfants;
 	}
 
@@ -93,7 +127,11 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 		}
 		return sb.toString();
 	}
-	
+
+	/**
+	 * @return Retourne les indices des cases adjacentes à la case blanche de cette
+	 *         grille.
+	 */
 	private Collection<Integer> adjacentCells() {
 		int idxWhiteCell = get(Arbre.SIZE - 1);
 		Collection<Integer> adjacentCells = new ArrayList<>();
@@ -108,14 +146,26 @@ public class Grille extends DefaultMutableTreeNode implements Comparable<Grille>
 		return adjacentCells;
 	}
 
+	/**
+	 * @param cell Un numéro de case.
+	 * @return L'indice de ce numéro dans l'ordre de la grille.
+	 */
 	int get(int cell) {
 		return ordre.indexOf(cell);
 	}
 
+	/**
+	 * @param cellIdx L'index d'une case de la grille
+	 * @return l'indice de la ligne
+	 */
 	int row(int cellIdx) {
 		return cellIdx / Arbre.DIM;
 	}
 
+	/**
+	 * @param cellIdx L'index d'une case de la grille
+	 * @return l'indice de la colonne
+	 */
 	int col(int cellIdx) {
 		return cellIdx % Arbre.DIM;
 	}

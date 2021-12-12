@@ -6,6 +6,7 @@ import taquin.arbre.Arbre;
 import taquin.arbre.Grille;
 
 /**
+ * Décrit la distance Manhattan (voir rapport).
  * 
  * @author GATTACIECCA Basti1
  * @author POLYDORAS Dimi3
