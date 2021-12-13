@@ -216,10 +216,10 @@ public class Arbre {
 //		System.out.println("% d'erreur total = "  + (100 * nbErr0/NBITERATION));
 		
 		
-		heuristique = new DistanceManhattan();
-		List<Integer> ordre = Arrays.asList(0, 8, 2, 6, 1, 5, 4, 3, 7);
+		heuristique = new HeuristiqueSuite();
+		List<Integer> ordre = Arrays.asList(0,1,2,3,5,8,6,4,7);
 		entree = new Grille(heuristique, null, 0, ordre);
-		algo = new Algo_BestFirst(entree);
+		algo = new Algo_DepthFirst(entree);
 		System.out.println("Paramètres: " + heuristique.toString() + " + " + algo.toString());
 		System.out.println("Trouvé en " + algo.nextMove() + " coups!");
 	}

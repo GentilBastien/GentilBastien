@@ -22,8 +22,8 @@ public class DistanceManhattan implements Heuristique {
 
 		for (int i = 0; i < Arbre.SIZE; i++) {
 			/*
-			 * On compare l'index de num dans ordre et l'index de num dans ORDRE_FINAL. On
-			 * note que num est égal son index dans ORDRE_FINAL.
+			 * i est l'index dans ORDRE_FINAL et idx est l'index dans ordre. On note que i
+			 * == ORDRE_FINAL[i].
 			 */
 			int idx = ordre.indexOf(i);
 			distance += Math.abs(i % Arbre.DIM - idx % Arbre.DIM) + Math.abs(i / Arbre.DIM - idx / Arbre.DIM);

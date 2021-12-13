@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 public class GrilleMutableGraphique extends GrilleMutable {
 
 	public static void main(String[] args) {
-		new GrilleMutableGraphique(5 * 5, "img//dimi.png");
+		new GrilleMutableGraphique(3*3, "img//dimi.png");
 	}
 
 	/**
